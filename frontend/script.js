@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Seleciona automaticamente o endpoint correto (local vs produção)
     const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
     const apiEndpointStream = isLocal ? 'http://127.0.0.1:8000/api/chat_stream' : '/api/chat_stream';
+    const apiEndpointNonStream = isLocal ? 'http://127.0.0.1:8000/api/chat' : '/api/chat';
 
     // Histórico local da conversa para manter contexto
     const history = [];
@@ -38,8 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 }),
             });
 
+            // Se a chamada stream não for suportada, faz fallback automático
             if (!response.ok || !response.body) {
-                throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
+                const nonStreamResp = await fetch(apiEndpointNonStream, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: userMessage,
+                        history,
+                        mode: (longModeToggle && longModeToggle.checked) ? 'long' : 'short',
+                    }),
+                });
+                if (!nonStreamResp.ok) throw new Error(`Erro na API (fallback): ${nonStreamResp.status} ${nonStreamResp.statusText}`);
+                const data = await nonStreamResp.json();
+                const finalMessage = data.response || '';
+                const botElement = document.createElement('div');
+                botElement.classList.add('message', 'bot-message');
+                chatBox.replaceChild(botElement, loadingSpinner);
+                renderBotHtmlInto(botElement, finalMessage);
+                history.push({ role: 'assistant', content: finalMessage });
+                return; // encerra cedo pois já respondeu
             }
 
             // Prepara um elemento vazio para stream
