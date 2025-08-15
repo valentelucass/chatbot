@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+
+# Environments
+.venv/
+venv/
+ENV/
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors/IDEs
+.vscode/
+.idea/
+*.swp
+.fleet/
+.history/
+
+# Vercel
+.vercel/
+
+# Logs
+logs/
+*.log
+nohup.out
+*.pid
+
+# Frontend build artifacts (if any)
+dist/
+build/
+node_modules/
+*.tsbuildinfo
+*.map
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+storybook-static/
+out/
+
+# Cache
+.cache/
+pytest_cache/
+.ruff_cache/
+.pytest_cache/
+.parcel-cache/
+.next/
+.nuxt/
+
+# Local tooling
+.coverage
+.mypy_cache/
+.coverage.*
+coverage.xml
+htmlcov/
+.python-version
+pip-wheel-metadata/
+pip-log.txt
+site/
+*.DS_Store
+*.coverage

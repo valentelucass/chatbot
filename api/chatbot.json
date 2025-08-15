@@ -1,0 +1,66 @@
+[
+  {
+    "keywords": ["oi", "ola", "bom dia", "boa tarde", "boa noite", "e aí", "eai"],
+    "response": "Olá! Eu sou o Chatbot do Estudante. Posso te ajudar com dúvidas de programação, projetos, portfólio ou dicas de estudo. Em que posso ajudar hoje?"
+  },
+  {
+    "keywords": ["quem e voce", "quem vc e", "qual seu nome", "se apresente"],
+    "response": "Eu sou um assistente virtual criado por Lucas Andrade para ajudar estudantes e desenvolvedores com programação, estudos e informações sobre projetos. Fui construído em Python e FastAPI, com arquitetura simples e escalável."
+  },
+  {
+    "keywords": ["lucas", "lucas andrade", "quem e lucas", "sobre o lucas"],
+    "response": "Lucas Andrade é estudante de Análise e Desenvolvimento de Sistemas, desenvolvedor de projetos web e aplicativos, e criador do chatbot que você está usando. Ele tem experiência com Java, Node.js, Python, PHP, SQL, MySQL, Oracle, MongoDB, HTML, CSS, JavaScript, React, Express e Sequelize."
+  },
+  {
+    "keywords": ["site do lucas", "website", "portifolio online", "portifolio do lucas", "website lucas"],
+    "response": "Você pode conhecer os projetos e portfólio do Lucas Andrade em seu site: https://tinyurl.com/dauv7mtj"
+  },
+  {
+    "keywords": ["github do lucas", "repos do lucas", "codigo do criador", "github do criador", "github lucas andrade", "github do lucas andrade"],
+    "response": "O GitHub do Lucas Andrade está disponível em: https://github.com/valentelucass, onde você encontra seus projetos de estudo, trabalhos acadêmicos e aplicativos."
+  },
+  {
+    "keywords": ["linkedin lucas", "perfil profissional", "linkedin do lucas"],
+    "response": "O LinkedIn do Lucas Andrade é: https://www.linkedin.com/in/dev-lucasandrade"
+  },
+  {
+    "keywords": ["javascript", "o que e js", "aprender js", "como usar javascript"],
+    "response": "JavaScript é uma linguagem de programação versátil, usada para criar interatividade em páginas web, além de ser usada no backend (Node.js), aplicativos mobile, bots e muito mais."
+  },
+  {
+    "keywords": ["python", "aprender python", "como comecar com python"],
+    "response": "Python é ideal para iniciantes e profissionais! Comece instalando a versão mais recente em python.org e explore tutoriais interativos como FreeCodeCamp ou a documentação oficial."
+  },
+  {
+    "keywords": ["java", "aprender java", "como comecar com java"],
+    "response": "Java é uma linguagem robusta, amplamente usada para desenvolvimento web, aplicativos corporativos e Android. É ótima para aprender conceitos de programação orientada a objetos."
+  },
+  {
+    "keywords": ["diferenca entre null e undefined", "null vs undefined"],
+    "response": "Em JavaScript, `undefined` indica que uma variável foi declarada mas não recebeu valor. Já `null` representa a ausência intencional de qualquer valor de objeto."
+  },
+  {
+    "keywords": ["projetos lucas", "projetos do lucas", "o que lucas fez", "trabalhos do lucas"],
+    "response": "Lucas Andrade desenvolveu projetos acadêmicos e pessoais, incluindo plataformas web, aplicativos de conversão de números, gerenciadores de tarefas e o projeto iTrainee, uma plataforma de integração de estudantes, professores e empresas."
+  },
+  {
+    "keywords": ["estudos lucas", "como lucas estuda", "dicas de estudo", "estudo programação"],
+    "response": "Lucas recomenda estudar programação com prática diária, projetos reais e leitura da documentação oficial. Ele também usa resumos, PDFs e Notion para organizar os estudos."
+  },
+  {
+    "keywords": ["contato lucas", "falar com lucas", "como falar com lucas"],
+    "response": "Você pode entrar em contato com Lucas Andrade pelo LinkedIn (https://www.linkedin.com/in/dev-lucasandrade) ou pelo e-mail disponível em seu site oficial."
+  },
+  {
+    "keywords": ["obrigado", "valeu", "vlw", "obg"],
+    "response": "De nada! Estou aqui para ajudar. Se tiver mais dúvidas, pode perguntar."
+  },
+  {
+    "keywords": ["tchau", "ate mais", "adeus"],
+    "response": "Até logo! Bons estudos!"
+  },
+  {
+    "keywords": ["quem te criou", "quem criou voce", "quem criou você", "criador do chatbot", "quem fez o chatbot", "quem e seu criador", "quem é seu criador"],
+    "response": "Fui criado por Lucas Andrade, estudante e desenvolvedor apaixonado por tecnologia e ensino de programação."
+  }
+]

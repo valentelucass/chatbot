@@ -1,0 +1,28 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/main.py",
+        "use": "@vercel/python",
+        "config": { "pythonVersion": "3.11" }
+      },
+      {
+        "src": "frontend/**",
+        "use": "@vercel/static"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/main.py"
+      },
+      {
+        "src": "/(.*)\\.(css|js|png|jpg|jpeg|svg|ico|webp|json)",
+        "dest": "/frontend/$1.$2"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/frontend/index.html"
+      }
+    ]
+  }
