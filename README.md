@@ -4,11 +4,11 @@ description: Chatbot full-stack para auxiliar estudantes em dúvidas de programa
 technologies: Python, FastAPI, JavaScript, HTML5, CSS3
 demo: https://chatbot-ten-pi-24.vercel.app/
 highlight: true
-image: chatbot.png
+image: foto.png
 -->
 
 <p align="center">
-  <img src="chatbot.png" alt="Capa do projeto" width="1200">
+  <img src="foto.png" alt="Capa do projeto" width="1200">
 </p>
 
 # Chatbot para Estudantes
