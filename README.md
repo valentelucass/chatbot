@@ -1,100 +1,36 @@
-## Deploy na Vercel
+<!-- PORTFOLIO-FEATURED
+title: Chatbot para Estudantes
+description: Chatbot full-stack para auxiliar estudantes em dúvidas de programação e estudos gerais, com base local e fallback via OpenAI.
+technologies: Python, FastAPI, JavaScript, HTML5, CSS3
+demo: https://chatbot-ten-pi-24.vercel.app/
+highlight: true
+image: chatbot.png
+-->
 
-Este projeto está preparado para deploy na Vercel com backend em FastAPI e frontend estático.
 
-### Requisitos
-- Python (gerenciado pela Vercel via `@vercel/python`)
-- `requirements.txt` no raiz do projeto
-- `vercel.json` já configurado
-- Variável de ambiente `OPENAI_API_KEY`
-
-### Passos
-1. Crie um projeto na Vercel e importe este repositório.
-2. Em Settings → Environment Variables, adicione:
-   - `OPENAI_API_KEY` (Production/Preview/Development conforme desejar)
-3. Deploy.
-
-### Roteamento
-- API: `api/main.py` servida por `@vercel/python`.
-- Frontend: tudo em `frontend/` servindo assets estáticos.
-- Rotas definidas em `vercel.json`:
-  - `/api/(.*)` → `api/main.py`
-  - `/*.(css|js|png|jpg|jpeg|svg|ico|webp|json)` → `frontend/`
-  - fallback `/(.*)` → `frontend/index.html`
-
-### Endpoints úteis
-- `POST /api/chat` → endpoint principal do chatbot
-- `GET /api/kb_status` → diagnóstico da base local (quantidade, mtime, caminho)
-
-## Desenvolvimento local
-
-### Backend
-```bash
-python -m api.main
-# Servirá em http://127.0.0.1:8000
-```
-
-### Frontend
-Abra `frontend/index.html` com Live Server (http://127.0.0.1:5500). O frontend detecta ambiente local e chama `http://127.0.0.1:8000/api/chat` automaticamente.
-
-## Variáveis de ambiente
-- `OPENAI_API_KEY` → chave da OpenAI usada no fallback do modelo.
-
-## Prioridade da Base Local
-A lógica tenta responder primeiro usando `api/chatbot.json` (match exato e por substring). Só chama a OpenAI se não houver resposta local.
-
-## Recursos Implementados
-- Auto-reload do `chatbot.json` por mtime.
-- Toggle de resposta curta/longa no frontend (enviado como `mode`).
-- "Mostrar mais/menos" para respostas longas.
-- Endpoint de diagnóstico `GET /api/kb_status`.
-
-### Novidades
-- Streaming de respostas: `POST /api/chat_stream` (melhor UX em respostas longas).
-- Realce de código com Prism.js no frontend (`frontend/index.html`).
-- Correspondência local aprimorada:
-  - Exato → Substring → Fuzzy (SequenceMatcher + Jaccard) → Embeddings (OpenAI) opcional.
-
-## Como funciona o matching local
-Ordem de tentativa no `api/chatbot.py` → `get_local_response()`:
-1. Exato: `normalize_text(input) == normalize_text(keyword)`.
-2. Substring: `keyword ∈ input normalizado`.
-3. Fuzzy: combinação de similaridade de sequência e sobreposição de tokens (limiar ~0.78).
-4. Embeddings (opcional): usa `text-embedding-3-small` para comparar consulta com vetores da KB (limiar cos ~0.82). Cache de embeddings é invalidado ao recarregar a base.
-
-Observação: Embeddings só ativam se `OPENAI_API_KEY` estiver definido.
-
-## Streaming no Frontend
-O frontend agora consome `/api/chat_stream` e renderiza o texto incrementalmente; ao final aplica Markdown + Prism.js e o colapso "Mostrar mais/menos".
-
-## Realce de Código (Prism.js)
-Incluímos Prism theme Tomorrow e linguagens comuns (JS, TS, Python, Java). Para detectar linguagem, use blocos:
-
-```markdown
-```python
-print("hello")
-```
-```
-
-O renderer adiciona `class="language-<lang>"` ao `<code>`.
 # Chatbot para Estudantes
 
-Este projeto é um chatbot simples e escalável, projetado para ajudar estudantes com dúvidas sobre programação e outros tópicos de estudo. A arquitetura foi pensada para ser de fácil manutenção, baixo custo e com deploy simplificado na Vercel.
+🔗 [Acesse o chatbot online](https://chatbot-ten-pi-24.vercel.app/)
+
+Este projeto é um **chatbot simples e escalável**, projetado para ajudar estudantes com dúvidas sobre programação e outros tópicos de estudo. A arquitetura foi pensada para ser **fácil de manter, de baixo custo e com deploy simplificado na Vercel**.
+
+---
 
 ## ✨ Visão Geral da Arquitetura
 
 O projeto é dividido em duas camadas principais:
 
--   **Frontend**: Uma interface de chat estática construída com HTML, CSS e JavaScript puros. Ela é responsável por exibir a conversa e se comunicar com o backend.
--   **Backend**: Uma API em Python construída com o framework FastAPI. Ela contém a lógica do chatbot, processando as mensagens dos usuários.
+* **Frontend**: Interface de chat estática construída com HTML, CSS e JavaScript puros. Responsável por exibir a conversa e se comunicar com o backend.
+* **Backend**: API em Python usando FastAPI. Contém a lógica do chatbot, processando as mensagens dos usuários.
 
 ### Fluxo de Funcionamento
-1.  O usuário envia uma mensagem através do frontend.
-2.  O frontend faz uma requisição HTTP POST para o endpoint `/api/chat`.
-3.  O backend FastAPI recebe a mensagem.
-4.  A lógica do chatbot primeiro busca por uma resposta em uma base de conhecimento local (`chatbot.json`).
-5.  Se nenhuma resposta correspondente for encontrada, ele consulta a API da OpenAI (ChatGPT) como fallback.
-6.  A resposta é retornada em formato JSON para o frontend, que a exibe na tela.
+
+1. O usuário envia uma mensagem pelo frontend.
+2. O frontend faz uma requisição HTTP POST para o endpoint `/api/chat`.
+3. O backend FastAPI recebe a mensagem.
+4. A lógica do chatbot busca primeiro por uma resposta na **base de conhecimento local** (`chatbot.json`).
+5. Se não houver resposta local, a API da OpenAI (ChatGPT) é usada como fallback.
+6. A resposta é retornada em JSON para o frontend, que a exibe na tela.
 
 ---
 
@@ -105,19 +41,19 @@ chatbot/
 │
 ├── api/
 │   ├── main.py             # Entrada da API (FastAPI)
-│   ├── chatbot.py          # Módulo de lógica do chatbot
+│   ├── chatbot.py          # Lógica do chatbot
 │   ├── chatbot.json        # Base local de conhecimento
 │   ├── config.py           # Configurações e variáveis de ambiente
 │   ├── utils.py            # Funções auxiliares
 │   └── __init__.py         # Marca 'api' como pacote Python
 │
 ├── frontend/
-│   ├── index.html          # Estrutura da página de chat
-│   ├── style.css           # Estilos visuais
-│   └── script.js           # Lógica do cliente (chamadas de API)
+│   ├── index.html          # Página de chat
+│   ├── style.css           # Estilos
+│   └── script.js           # Lógica do frontend
 │
-├── requirements.txt        # Dependências do backend Python
-├── vercel.json             # Configuração de deploy para a Vercel
+├── requirements.txt        # Dependências Python
+├── vercel.json             # Configuração de deploy Vercel
 ├── .env                    # Variáveis de ambiente (não versionar)
 ├── .gitignore              # Arquivos/pastas ignorados pelo Git
 └── README.md               # Este arquivo
@@ -127,76 +63,104 @@ chatbot/
 
 ## 🛠️ Como Executar Localmente
 
-Siga os passos abaixo para testar o projeto na sua máquina.
-
 ### Pré-requisitos
--   [Python 3.9+](https://www.python.org/downloads/)
--   Um editor de código (ex: VS Code)
--   Conta na [OpenAI](https://platform.openai.com/) e uma API Key (opcional, apenas para o fallback com ChatGPT).
 
-### Passo a Passo no Terminal
+* [Python 3.9+](https://www.python.org/downloads/)
+* Editor de código (ex.: VS Code)
+* Conta OpenAI com API Key (opcional, apenas para fallback ChatGPT)
 
-1.  **Clone o repositório (ou crie a pasta e os arquivos):**
-    ```bash
-    # Se estiver usando git
-    git clone <url-do-seu-repositorio>
-    cd chatbot
-    ```
+### Passo a Passo
 
-2.  **Crie e ative um ambiente virtual:**
-    Isso isola as dependências do seu projeto.
-    ```bash
-    # Windows
-    python -m venv .venv
-    .\.venv\Scripts\activate
+1. **Clone o repositório**
 
-    # macOS / Linux
-    python3 -m venv .venv
-    source .venv/bin/activate
-    ```
+```bash
+git clone <url-do-seu-repositorio>
+cd chatbot
+```
 
-3.  **Instale as dependências Python:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+2. **Crie e ative um ambiente virtual**
 
-4.  **(Opcional) Configure as variáveis de ambiente para o fallback (OpenAI):**
-    Crie um arquivo chamado `.env` na raiz (`chatbot/`) e adicione sua chave da OpenAI.
-    ```
-    # .env
-    OPENAI_API_KEY="sk-...sua_chave_aqui"
-    ```
+```bash
+# Windows
+python -m venv .venv
+.\.venv\Scripts\activate
 
-5.  **Inicie o servidor da API:**
-    ```bash
-    uvicorn api.main:app --reload
-    ```
-    -   O servidor estará rodando em `http://127.0.0.1:8000`.
-    -   A flag `--reload` reinicia o servidor automaticamente quando você altera o código.
+# macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-6.  **Abra o frontend:**
-    -   Navegue até a pasta `frontend/`.
-    -   Abra o arquivo `index.html` diretamente no seu navegador.
-    -   **Importante:** Para o `script.js` conseguir chamar a API localmente, você pode precisar de um servidor de arquivos estáticos simples para evitar problemas de CORS. A forma mais fácil é usar a extensão "Live Server" no VS Code.
+3. **Instale as dependências**
+
+```bash
+pip install -r requirements.txt
+```
+
+4. **(Opcional) Configure a variável de ambiente da OpenAI**
+   Crie um arquivo `.env` na raiz:
+
+```
+OPENAI_API_KEY="sk-...sua_chave_aqui"
+```
+
+5. **Inicie o servidor**
+
+```bash
+uvicorn api.main:app --reload
+```
+
+* Servidor rodando em `http://127.0.0.1:8000`.
+* `--reload` reinicia automaticamente ao alterar o código.
+
+6. **Abra o frontend**
+
+* Navegue até `frontend/` e abra `index.html`.
+* Recomenda-se usar **Live Server** no VS Code para evitar problemas de CORS.
 
 ---
 
 ## 🌐 Deploy na Vercel
 
-O deploy deste projeto na Vercel é extremamente simples:
+O deploy é simples:
 
-1.  Envie seu projeto para um repositório no GitHub, GitLab ou Bitbucket.
-2.  Acesse sua conta na [Vercel](https://vercel.com).
-3.  Clique em "Add New..." -> "Project".
-4.  Importe o repositório do seu projeto.
-5.  A Vercel deve detectar automaticamente que é um projeto Python com FastAPI e usar as configurações do `vercel.json`. Nenhum ajuste é necessário.
-6.  **(Opcional) Adicione suas Environment Variables** na aba de configurações do projeto na Vercel (ex: `OPENAI_API_KEY`).
-7.  Clique em "Deploy". Pronto!
+1. Suba o projeto para GitHub, GitLab ou Bitbucket.
+2. No [Vercel](https://vercel.com), clique em "Add New Project" e importe o repositório.
+3. A Vercel detecta automaticamente Python + FastAPI.
+4. (Opcional) Adicione variáveis de ambiente (`OPENAI_API_KEY`).
+5. Clique em **Deploy**. Pronto!
 
 ---
 
-## 📝 Observações importantes
+## 📝 Configurações e Variáveis
 
--   **CORS/localhost**: o backend permite origens `http://127.0.0.1:5500` e `http://localhost:5500`. Use um servidor estático (ex.: extensão Live Server no VS Code) para abrir `frontend/index.html` durante o desenvolvimento.
--   **Endpoint dinâmico no frontend**: `frontend/script.js` seleciona automaticamente o endpoint da API. Em localhost usa `http://127.0.0.1:8000/api/chat`; em produção usa o caminho relativo `/api/chat`.
--   **.gitignore**: já incluso para evitar versionar `.venv/`, `.env`, caches, logs e artefatos de build.
+* `OPENAI_API_KEY`: chave da OpenAI (para fallback com ChatGPT)
+* `frontend/script.js` detecta automaticamente se está em **localhost** ou produção.
+* Backend permite CORS para `http://127.0.0.1:5500` e `http://localhost:5500`.
+
+---
+
+## 🔧 Funcionalidades Implementadas
+
+* **Matching local**: busca exata, substring, fuzzy e embeddings (OpenAI opcional)
+* **Fallback OpenAI** caso nenhuma resposta local seja encontrada
+* **Streaming de respostas** (`/api/chat_stream`) para melhor UX em respostas longas
+* **Toggle resposta curta/longa** e "Mostrar mais/menos"
+* **Realce de código** com Prism.js no frontend
+* **Auto-reload** do `chatbot.json` por mtime
+* **Endpoint de diagnóstico**: `GET /api/kb_status`
+
+### Ordem de Matching Local
+
+1. Exato → 2. Substring → 3. Fuzzy (SequenceMatcher + Jaccard) → 4. Embeddings (cos \~0.82)
+
+* Embeddings ativam apenas se `OPENAI_API_KEY` estiver definida.
+
+---
+
+## 🔗 Endpoints Úteis
+
+* `POST /api/chat` → principal
+* `POST /api/chat_stream` → streaming
+* `GET /api/kb_status` → status da base local
+
+---
