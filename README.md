@@ -7,6 +7,9 @@ highlight: true
 image: chatbot.png
 -->
 
+<p align="center">
+  <img src="chatbot.png" alt="Capa do projeto" width="1200">
+</p>
 
 # Chatbot para Estudantes
 
